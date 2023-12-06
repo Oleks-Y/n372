@@ -4,7 +4,6 @@ export interface IEntityCache<K extends CacheKey, V> {
   fetch(key: K, fetcher: () => Promise<V>): Promise<V>;
   delete(key: K): void;
   take(key: K): V | undefined;
-  has(key: K): boolean;
   flush(): void;
 }
 
