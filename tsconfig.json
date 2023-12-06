@@ -7,7 +7,7 @@
 		"noImplicitAny": false,
 		"noEmitOnError": true,
 		"resolveJsonModule": true,
-		"rootDir": "./src",
+		"rootDir": "./",
 		"outDir": "./lib"
 	},
 	"exclude": ["node_modules", "dist", "test"]
