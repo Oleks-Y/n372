@@ -3,12 +3,16 @@
   "version": "1.1.0",
   "description": "Typescript library for simple in-memory caching.",
   "main": "lib/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Oleks-Y/n372.git"
+  },
   "scripts": {
     "build": "tsc",
     "test": "npx tsc --project tsconfig.test.json  &&  node --test"
   },
   "keywords": [],
-  "author": "",
+  "author": "oleks-y",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.3",
