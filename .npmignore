@@ -1,0 +1,9 @@
+/.github
+.prettierrc
+/assets
+.vscode/
+.idea/
+coverage/
+test
+tsconfig.test.json
+node_modules
