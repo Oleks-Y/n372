@@ -1,5 +1,4 @@
 {
-	"extends": "@tsconfig/recommended",
 	"compileOnSave": true,
 	"compilerOptions": {
 		"sourceMap": true,
@@ -8,7 +7,15 @@
 		"noEmitOnError": true,
 		"resolveJsonModule": true,
 		"rootDir": "./",
-		"outDir": "./lib"
+		"outDir": "./lib",
+		"target": "es2015",
+		"module": "commonjs",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true
 	},
-	"exclude": ["node_modules", "dist", "test"]
+	"exclude": ["node_modules", "dist", "test", "lib"],
+	"$schema": "https://json.schemastore.org/tsconfig",
+	"display": "Recommended"
 }
