@@ -1,4 +1,4 @@
-import { EntityCache } from "./EntityCache";
-import { IEntityCache } from "./types";
+import { EntityCacheAsync } from "./EntityCache";
+import { IEntityCacheAsync } from "./types";
 
-export { EntityCache, IEntityCache };
+export { EntityCacheAsync, IEntityCacheAsync };

@@ -1,4 +1,4 @@
-import { CacheKey, IEntityCache, ILogger } from "./types";
+import { CacheKey, IEntityCacheAsync, ILogger } from "./types";
 
 type CacheItem<V> = {
   value: V;
@@ -7,7 +7,7 @@ type CacheItem<V> = {
 
 type ItemDeleteCallback<V> = ((value: V) => Promise<void>) | undefined;
 
-export class EntityCache<K extends CacheKey, V> implements IEntityCache<K, V> {
+export class EntityCacheAsync<K extends CacheKey, V> implements IEntityCacheAsync<K, V> {
   private itemTtl: number = 0;
   private cache: Map<K, CacheItem<V>> = new Map<K, CacheItem<V>>();
   private onItemDelete: ItemDeleteCallback<V>;

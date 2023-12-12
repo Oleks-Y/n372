@@ -1,12 +1,12 @@
 import assert from "node:assert";
 import { describe, it, beforeEach, mock } from "node:test";
-import { EntityCache } from "../src/EntityCache";
+import { EntityCacheAsync } from "../src/EntityCache";
 
 describe("EntityCache", function () {
-  let cache: EntityCache<string, string>;
+  let cache: EntityCacheAsync<string, string>;
 
   beforeEach(() => {
-    cache = new EntityCache<string, string>(1000);
+    cache = new EntityCacheAsync<string, string>(1000);
   });
 
   it("set value", async () => {

@@ -1,4 +1,4 @@
-export interface IEntityCache<K extends CacheKey, V> {
+export interface IEntityCacheAsync<K extends CacheKey, V> {
   get(key: K): Promise<V | undefined>;
   set(key: K, value: V): Promise<void>;
   fetch(key: K, fetcher: () => Promise<V>): Promise<V>;
