@@ -5,15 +5,19 @@ type CacheItem<V> = {
   cachedAt: number;
 };
 
+type ItemDeleteCallback<V> = ((value: V) => Promise<void>) | undefined;
+
 export class EntityCache<K extends CacheKey, V> implements IEntityCache<K, V> {
   private itemTtl: number = 0;
   private cache: Map<K, CacheItem<V>> = new Map<K, CacheItem<V>>();
+  private onItemDelete: ItemDeleteCallback<V>;
 
-  constructor(itemTtl: number) {
+  constructor(itemTtl: number, onItemDelete?: ItemDeleteCallback<V>) {
     this.itemTtl = itemTtl;
+    this.onItemDelete = onItemDelete;
   }
 
-  get(key: K): V | undefined {
+  async get(key: K) {
     const item = this.cache.get(key);
 
     if (!item) {
@@ -21,14 +25,14 @@ export class EntityCache<K extends CacheKey, V> implements IEntityCache<K, V> {
     }
 
     if (Date.now() - item.cachedAt > this.itemTtl) {
-      this.cache.delete(key);
+      this.delete(key);
       return undefined;
     }
 
     return item.value;
   }
 
-  set(key: K, value: V): void {
+  async set(key: K, value: V) {
     this.cache.set(key, {
       value,
       cachedAt: Date.now(),
@@ -36,25 +40,32 @@ export class EntityCache<K extends CacheKey, V> implements IEntityCache<K, V> {
   }
 
   async fetch(key: K, fetcher: () => Promise<V>): Promise<V> {
-    if (this.cache.has(key)) {
-      return Promise.resolve(this.cache.get(key) as V);
+    if (this.cache.has(key)) {  
+      return Promise.resolve(this.cache.get(key)!.value);
     }
 
     return fetcher();
   }
 
-  delete(key: K): void {
+  async delete(key: K) {
+    if (this.onItemDelete) {
+      const item = this.cache.get(key);
+
+      if (item) {
+        await this.onItemDelete(item.value);
+      }
+    }
+
     this.cache.delete(key);
   }
 
-  take(key: K): V | undefined {
-    // const item = this.cache.get(key)?.value;
+  async take(key: K) {
     const item = this.get(key);
-    this.cache.delete(key);
+    this.delete(key);
     return item;
   }
 
-  flush(): void {
+  async flush() {
     this.cache.clear();
   }
 

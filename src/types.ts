@@ -1,10 +1,10 @@
 export interface IEntityCache<K extends CacheKey, V> {
-  get(key: K): V | undefined;
-  set(key: K, value: V): void;
+  get(key: K): Promise<V | undefined>;
+  set(key: K, value: V): Promise<void>;
   fetch(key: K, fetcher: () => Promise<V>): Promise<V>;
-  delete(key: K): void;
-  take(key: K): V | undefined;
-  flush(): void;
+  delete(key: K): Promise<void>;
+  take(key: K): Promise<V | undefined>;
+  flush(): Promise<void>;
 }
 
 export type CacheKey = string | number | symbol;
