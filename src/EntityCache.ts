@@ -48,7 +48,8 @@ export class EntityCache<K extends CacheKey, V> implements IEntityCache<K, V> {
   }
 
   take(key: K): V | undefined {
-    const item = this.cache.get(key)?.value;
+    // const item = this.cache.get(key)?.value;
+    const item = this.get(key);
     this.cache.delete(key);
     return item;
   }
